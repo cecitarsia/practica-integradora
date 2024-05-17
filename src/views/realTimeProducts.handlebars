@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Upload</title>
+</head>
+
+<body>
+<!--  Formulario para cargar productos  -->
+    <h1><strong>Cargar productos</strong></h1>
+    <form action="/api/products" method="POST" id="form">
+        <label for="title">Título:</label>
+        <input type="text" id="title" name="title" required><br><br>
+
+        <label for="description">Descripción:</label>
+        <input type="text" id="description" name="description" required><br><br>
+
+        <label for="code">Código:</label>
+        <input type="text" id="code" name="code" required><br><br>
+
+        <label for="price">Precio:</label>
+        <input type="text" id="price" name="price" required><br><br>
+
+        <label for="status">Activo:</label>
+        <input type="radio" id="status" name="status" required><br><br>
+
+        <label for="stock">Stock:</label>
+        <input type="text" id="stock" name="stock" required><br><br>
+
+        <label for="category">Categoría:</label>
+        <select id="category" name="category">
+            <option value="vinos">Vinos</option>
+            <option value="destilados">Destilados</option>
+        </select><br><br>   
+        {{!-- <input type="text" id="category" name="category" required><br><br> --}}
+        <div>
+        <button type="submit" id="btn-add">Cargar</button>
+        </div>
+    </form>
+
+<!--  Listado de los productos en tiempo real -->
+    <h2><strong>Listado Productos</strong></h2>
+        <div>
+            <ol id="realTimeProducts"></ol>
+        </div>
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/index.js"></script>
+</body> 
+
+</html>
