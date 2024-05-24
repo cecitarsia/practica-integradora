@@ -1,7 +1,19 @@
 {
+  "name": "practica-integradora",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "type": "module",
+  "scripts": {
+    "start": "node --watch src/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
   "dependencies": {
     "express": "^4.19.2",
     "express-handlebars": "^7.1.2",
+    "url": "^0.11.3",
     "mongoose": "^8.3.5",
     "socket.io": "^4.7.5"
   }

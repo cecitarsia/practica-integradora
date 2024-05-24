@@ -1,6 +1,6 @@
 import { Router } from 'express';
 const router = Router()
-import ProductManager from '../managers/productManager.js'
+import ProductManager from '../managers/ProductManager.js'
 
 const productManager = new ProductManager()
 
@@ -13,7 +13,7 @@ router.get("/",async(req,res)=>{
 
 // Trae la vista del formulario para cargar productos
 router.get('/realtimeproducts', (req,res) => {
-    res.render('realTimeProducts', {})
+    res.render('realTimeProducts', {products})
 })
 
 

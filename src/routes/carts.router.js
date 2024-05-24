@@ -1,7 +1,6 @@
-const fs = require('fs')
-const express = require("express")
-const router = express.Router()
-const CartManager = require('../managers/CartManager')
+import { Router } from 'express'
+const router = Router()
+import CartManager from '../managers/CarttManager.js'
 const cartManager = new CartManager()
 
 // Traer todos los carritos

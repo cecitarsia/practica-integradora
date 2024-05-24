@@ -1,24 +1,14 @@
 import { Router } from 'express';
 const router = Router()
-import ProductManager from '../managers/ProductManager.js.js'
+import ProductManager from '../managers/ProductManager.js'
+import productModel from '../models/product.model.js';
 const productManager = new ProductManager()
 
 
-// Traer todos los productos con y sin limit
+// Traer todos los productos
 router.get("/", async (req,res) => {
-    let limit = parseInt(req.query.limit)
-    try {
-        const products = await productManager.getProducts()
-        let limitedProducts = [...products]
-
-        if (limit) {
-            limitedProducts = limitedProducts.slice(0, limit)
-            res.json(limitedProducts)
-        }
-        res.json(products);
-    } catch (error) {
-        res.status(404).json({ message: "404 - Productos no encontrados" });
-    }
+    const products = await productManager.getProducts()
+    res.send({ result: "success", payload: products })
 
 })  
 
@@ -35,38 +25,33 @@ router.get("/:pid", async (req,res) => {
     }
 })
 
-
 // Agregar un producto
 router.post("/", async (req,res) => {
-    try {
-        const { title, description, code, price, status, stock, category, thumbnail } = req.body
-        const result = await productManager.addProduct(title, description, code, price, status, stock, category, thumbnail);
-        res.status(200).json(result);
-    } catch (error) {
-        res.status(404).json({ message: "No se pudo agregar el producto." });
+    const { title, description, code, price, status, stock, category, thumbnail } = req.body
+    // Esta validacion no me funciona en el ProductManager
+    if (!title || !description || !price || !code || !stock || !status || !category || !thumbnail) {
+        res.send({ status: "error", error: "Faltan datos." })
     }
+    const result = await productManager.addProduct(title, description, code, price, status, stock, category, thumbnail);
+    res.send({ result: "success", payload: result });
 })
 
 // Editar un producto por ID
-router.put("/:pid", async (req,res) => {
-    try {
-        let pid = parseInt(req.params.pid);
-        const updatedProduct = await productManager.updateProduct(pid,req.body);
-        res.status(200).json(updatedProduct);
-    } catch (error) {
-        res.status(404).json({ message: "No se pudo editar el producto." });
+router.put("/:pid", async (req,res) => {    
+    let { pid } = req.params
+    let productToUpdate = req.body
+    if (!productToUpdate.title || !productToUpdate.description || !productToUpdate.price || !productToUpdate.code || !productToUpdate.stock || !productToUpdate.category || !productToUpdate.thumbnail) {
+        res.send( { status: "error", error: "Parámetros no definidos."})
     }
+    let result = await productModel.updateOne({_id:pid}, productToUpdate)
+    res.send({ result: "success", payload: result })
 })
 
 // Eliminar un producto por ID
 router.delete("/:pid", async (req,res) => {
-    try {
-        let pid = parseInt(req.params.pid);
-        const result = await productManager.deleteProduct(pid);
-        res.status(200).json(result);
-    } catch (error) {
-        res.status(404).json({ message: "No se pudo eliminar el producto." });
-    }
+    let { pid } = req.params
+    let result = await productModel.deleteOne({_id:pid})
+    res.send({ result: "success", payload: result })
 })
 
 
