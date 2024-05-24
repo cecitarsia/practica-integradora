@@ -47,11 +47,12 @@ router.put("/:pid", async (req,res) => {
     res.send({ result: "success", payload: result })
 })
 
-// Eliminar un producto por ID
+// Eliminar un producto por ID ////
 router.delete("/:pid", async (req,res) => {
     let { pid } = req.params
     let result = await productModel.deleteOne({_id:pid})
     res.send({ result: "success", payload: result })
+    
 })
 
 
