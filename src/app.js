@@ -6,7 +6,7 @@
     import { Server } from 'socket.io'
     import viewsRouter from './routes/views.router.js'
     import productsRouter from './routes/products.router.js'
-    import ProductManager from './managers/ProductManager.js'
+    import ProductManager from './dao/db/managers/ProductManager.js'
     
     const app = express()
     const PORT = 8080
