@@ -3,20 +3,29 @@ const socket = io()
 // Funcionalidad y métodos del cliente
 socket.emit('message', "Comunicando desde WebSocket")
 
-// index
-// const productList = document.getElementById('products')
 
-// // socket.on('evento_para_todos', data => {
-// //     console.log(data)
-// // })
+/// Chat ///
 
-// socket.on('products', products => {
+const messages = document.getElementById('messages')
+const btnSend = document.getElementById('btn-send')
 
-//     productList.innerHTML = ""
-    
-// })
+btnSend.addEventListener('click', () => {
+    const user = document.getElementById('user').value;
+    const message = document.getElementById('message').value;
+    socket.emit('addMessage', { user, message});
 
-// realtimeproducts
+})
+
+socket.on('messages', messages => {
+    messages.innerHTML = ``;
+    messages.forEach(message => {
+        const newMessage = document.createElement('li');
+        newMessage.innerHTML = `<strong>Usuario: </strong>${message.user}, <p>Mensaje: </p>${message.message}`;
+        messages.appendChild(newMessage);
+    });
+})
+
+/// realtimeproducts ///
 const form = document.getElementById("form")
 const addButton = document.getElementById('btn-add')
 

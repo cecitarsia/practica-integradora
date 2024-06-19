@@ -1,4 +1,4 @@
-import productModel from "../../models/product.model.js"
+import productModel from "../models/product.model.js"
 
 class ProductManager {
 
@@ -45,7 +45,6 @@ class ProductManager {
     async updateProduct(id, value) {
         try {
             const products = await this.getProducts()
-
 
         } catch (error) {
             console.error("Error al actualizar el producto", error);

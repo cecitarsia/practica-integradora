@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+
+<body>
+
+    <div>
+        <h1>PRODUCTOS</h1>
+    </div>
+    {{!-- <div>
+        <ol id="products"></ol>
+    </div> --}}
+    <ul>
+        {{#each products}}
+        <li>
+            <p>Title:</p> {{this.title}}, 
+            <p>Description:</p> {{this.description}}, 
+            <p>Price:</p> ${{this.price}},
+            <p>Stock:</p> {{this.stock}}
+        </li>
+        {{/each}}
+    </ul>
+    </div>
+
+    <h2>CHATBOX</h2>
+    {{#each messages}}
+    <div>
+        <p><strong>{{this.user}}</strong></p>
+        <p>{{this.message}}</p>
+    </div>
+    {{/each}}
+
+    
+<script>
+    const socket = io()
+
+    function sendMessage() {
+        const message = document.getElementById('message').value
+        socket.emit('message', message)
+    }
+
+    const boton = document.getElementById('btn-send')
+    boton.addEventListener('click', () => {
+        console.log('click en boton')
+    })
+
+    socket.on('message', (data) => {
+        console.log(`mensaje recibido del servidor ${data}`)
+    })
+</script>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/index.js"></script>
+</body>
+
+</html>
