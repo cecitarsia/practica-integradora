@@ -1,0 +1,35 @@
+<div>
+    <h3>Bienvenid@, {{user.first_name}} {{user.last_name}}! Tu rol es: {{user.role}}</h3>
+</div>
+
+<h2>Productos</h2>
+
+<div>
+    {{#each docs}}
+    <div>
+        <p><strong>{{title}}</strong> - {{description}} - Stock: {{stock}} - Precio: ${{price}} </p>
+        <div>
+            <button onclick="addProductToCart('{{cartId}}', '{{_id}}')" data-product-id="{{_id}}">Agregar al
+                carrito</button>
+        </div>
+    </div>
+    <br />
+    {{/each}}
+</div>
+<br />
+<div>
+    {{#if hasPrevPage}}
+    <a href={{this.prevLink}}>
+        << Anterior</a>
+            {{/if}}
+            &nbsp;
+            {{this.page}}
+            &nbsp;
+            {{#if hasNextPage}}
+            <a href={{this.nextLink}}>Siguiente >></a>
+            {{/if}}
+</div>
+<br>
+<form action="/api/sessions/logout" method="POST">
+    <button type="submit">Cerrar Sesión</button>
+</form>
